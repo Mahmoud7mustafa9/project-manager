@@ -1,19 +1,12 @@
 import express from "express" ;
 import dotenv from "dotenv";
 import { connectDb } from "./DB/db.connection.js";
-import { userRoute } from "./modules/user/userRoutes.js";
+import { bootstrap } from "./bootstrap.js";
 
 const app = express();
-app.use(express.json())
 dotenv.config()
-
-
-app.use("/user", userRoute)
-
-app.get ("/", (req,res)=>{
-return res.send(" hello everyone")
-
-})
+app.use(express.json());
+bootstrap(app)
 
 app.listen(process.env.PORT,()=>{
 

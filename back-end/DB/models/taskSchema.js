@@ -30,21 +30,26 @@ const taskSchema = new mongoose.Schema(
       default: "to-do",
     },
 
-    project: {
+    projectId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
       required: true,
     },
 
-    assignedUsers: [
+    assignedUser: 
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
-    ],
+
   },
   {
-    timestamps: true ,
+    timestamps: {
+        createdAt : "myData",
+        updatedAt:"false"
+
+    },
+    versionKey: "true"
   }
 );
 

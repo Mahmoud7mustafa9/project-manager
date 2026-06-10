@@ -23,21 +23,16 @@ const projectSchema = new mongoose.Schema(
 
     users: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId ,
         ref: "User",
       },
     ],
-    tasks: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Task",
-      },
-    ],
-    status: {
-      type: String,
-      enum: ["to-do", "in-progress", "completed"],
-      default: "to-do",
-    },
+    // // tasks: [
+    // //   {
+    // //     type: mongoose.Schema.Types.ObjectId,
+    // //     ref: "Task",
+    // //   },
+    // ],
 
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -45,9 +40,22 @@ const projectSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: {
+        createdAt : "myData",
+        updatedAt:"false"
+
+    },
+    versionKey: "true" ,
+    toJSON:{virtuals:true}, toObject:{virtuals:true}
   }
 );
+// virtual field
+
+projectSchema.virtual("tasksList",{
+    ref:"Task",
+    localField:"_id",
+    foreignField:"projectId"
+})
 
 export const Project = mongoose.model("Project", projectSchema);
 

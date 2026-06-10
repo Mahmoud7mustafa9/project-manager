@@ -21,12 +21,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+       trim: true,
     },
 
     password: {
       type: String,
       required: true,
       minlength: 6,
+      select : false ,
     },
 
     role: {
@@ -38,7 +40,7 @@ const userSchema = new mongoose.Schema(
     status:{
         type:String,
         enum:["active", "inactive"],
-        default:"active",
+        default:"inactive",
     }
   },
   {
@@ -47,9 +49,9 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre("save", async function(next) {
+userSchema.pre("save", async function() {
 
-if (!this.isModified("password")) return next();
+if (!this.isModified("password")) return ;
 
 this.password = await bcrypt.hash(this.password,8)
 

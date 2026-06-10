@@ -1,7 +1,9 @@
 import Router from "express";
-import { addUser } from "./userController.js";
+import { getAllUsers, getoneUser, toggleUserStatus } from "./userController.js";
 
 export const userRoute = Router();
 
 
-userRoute.post("/adduser", addUser)
+userRoute.get("/users",getAllUsers )
+userRoute.get("/:id",getoneUser )
+userRoute.patch("/changestatus/:id",toggleUserStatus )
